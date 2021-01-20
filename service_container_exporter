@@ -1,0 +1,36 @@
+#
+# container_exporter exposes CPU% and MEM% metrics of all running
+# Docker containers to Prometheus
+#
+#   Copyright (C) 2021 Vincent Falzon
+#
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
+service container_exporter
+{
+  # General settings
+  disable = no
+  type = UNLISTED
+  socket_type = stream
+  protocol = tcp
+  wait = no
+  user = root
+
+  # Script generating the metrics and preparing the HTTP header
+  server = /media/data/github/container_exporter/container_exporter.sh
+
+  # TCP port that will be used by Prometheus to scrape the metrics
+  port = 9117
+}
